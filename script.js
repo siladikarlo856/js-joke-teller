@@ -1,20 +1,6 @@
 const button = document.getElementById('button');
 const audioElement = document.getElementById('audio');
 
-function test() {
-    VoiceRSS.speech({
-        key: '9afc17a8ddd547a588f928b97ed703ae',
-        src: 'Hello, world!',
-        hl: 'en-us',
-        v: 'Linda',
-        r: 0,
-        c: 'mp3',
-        f: '44khz_16bit_stereo',
-        ssml: false
-    });
-}
-
-button.addEventListener('click', test);
 
 // Get Jokes from Joke API
 async function getJokes() {
@@ -28,6 +14,7 @@ async function getJokes() {
         } else {
             joke = data.joke;
         }
+        tellMe(joke);
         console.log(joke);
     } catch (error) {
         // Catch Errors Here
@@ -35,8 +22,25 @@ async function getJokes() {
     }
 }
 
+function tellMe(text) {
+    VoiceRSS.speech({
+        key: '9afc17a8ddd547a588f928b97ed703ae',
+        src: text,
+        hl: 'en-us',
+        v: 'Linda',
+        r: 0,
+        c: 'mp3',
+        f: '44khz_16bit_stereo',
+        ssml: false
+    });
+}
+
+button.addEventListener('click', getJokes);
+
+
+
 // On Load
-getJokes();
+
 
 
 // Copied from downloaded file + link audioElement 
