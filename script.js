@@ -16,6 +16,29 @@ function test() {
 
 button.addEventListener('click', test);
 
+// Get Jokes from Joke API
+async function getJokes() {
+    let joke = '';
+    const apiUrl = 'https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw,religious,political,racist,sexist,explicit';
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        if(data.setup) {
+            joke = `${data.setup} ... ${data.delivery}`;
+        } else {
+            joke = data.joke;
+        }
+        console.log(joke);
+    } catch (error) {
+        // Catch Errors Here
+        console.log("Fetching joke error: ", error);
+    }
+}
+
+// On Load
+getJokes();
+
+
 // Copied from downloaded file + link audioElement 
 "use strict";
 var VoiceRSS = {
